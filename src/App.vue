@@ -4,8 +4,8 @@
       <div class="todo-container">
         <div class="todo-wrap">
           <HeaderTop :addTodo="addTodo"></HeaderTop>
-          <UseList :todos="todos"></UseList>
-          <UseFooter></UseFooter>
+          <UseList :todos="todos" :checkTodo='checkTodo' :delTodo='delTodo'></UseList>
+          <UseFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"></UseFooter>
         </div>
       </div>
     </div>
@@ -26,18 +26,43 @@ export default {
   },
   data(){
     return {
-      todos:[
-        {id:'001',name:'吃饭',done:true},
-        {id:'002',name:'睡觉',done:false},
-        {id:'003',name:'唱歌',done:false},
-        {id:'004',name:'跳舞',done:false},
-      ],
+      todos: JSON.parse(localStorage.getItem('todos')) || [],
     }
   },
   methods:{
+    // 添加todo
     addTodo(x){
       console.log('我收到了数据：',x)
       this.todos.unshift(x);
+    },
+    // 取消/勾选
+    checkTodo(id){
+      this.todos.forEach(todo=>{
+        if(todo.id === id){
+          todo.done = !todo.done
+        }
+      })
+    },
+    delTodo(id){
+      this.todos = this.todos.filter(todo=> todo.id !== id)
+    },
+    // 全选 全部选
+    checkAllTodo(done){
+      this.todos.forEach(item=>{
+        item.done = done
+      })
+    },
+    // 清除所有已弯沉固定todo
+    clearAllTodo(){
+      this.todos = this.todos.filter(item=>!item.done)
+    }
+  },
+  watch: {
+    todos:{
+      deep:true,
+      handler(value){
+        localStorage.setItem('todos', JSON.stringify(value))
+      }
     }
   }
 }
