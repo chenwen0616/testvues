@@ -1,32 +1,18 @@
 <template>
-  <div class="app">
-    <h1>{{msg}}</h1>
-    <School />
-    <Student />
+  <div class="container">
+    <Search />
+    <Lists />
   </div>
 </template>
 
 <script>
-  
-  import Student from './components/Student';
-  import School from './components/School'
+  import Search from './components/Search.vue'
+  import Lists from './components/Lists.vue'
   export default {
     name: 'App',
-    components:{
-      Student,
-      School
-    },
-    data(){
-      return{
-        msg:'你好啊！'
-      }
+    components: {
+      Search,
+      Lists,
     },
   }
 </script>
-
-<style>
-  .app{
-    background-color: gray;
-    padding: 6px;
-  }
-</style>

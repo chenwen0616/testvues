@@ -14,6 +14,12 @@
         address: '白云区'
       }
     },
+    mounted(){
+      console.log('School',this)
+      this.$bus.$on('hello',data=>{
+        console.log('我是school组件，收到了数据',data)
+      })
+    }
   }
 </script>
 

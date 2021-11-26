@@ -2,7 +2,7 @@
   <div class="student">
     <h2>姓名：{{name}}</h2>
     <h2>性别：{{sex}}</h2>
-    <button>把学生名给School组件</button>
+    <button @click="sendStuName">把学生名给School组件</button>
   </div>
 </template>
 
@@ -14,6 +14,11 @@
         name: "张三",
         sex: "man"
       };
+    },
+    methods:{
+      sendStuName(){
+        this.$bus.$emit('hello',this.name)
+      }
     }
   };
 </script>
